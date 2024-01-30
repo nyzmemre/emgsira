@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "787297314554",
+    "project_id": "emgsira",
+    "storage_bucket": "emgsira.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787297314554:android:0e9bda2b3cbe43217b0b43",
+        "android_client_info": {
+          "package_name": "com.emgsira.emgsira"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNOsbLINZBJn3hQUthqIcnd-qVmYydwoo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
