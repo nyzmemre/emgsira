@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:emgsira/appointment_model.dart';
+import 'package:emgsira/private_appointment.dart';
+import 'package:emgsira/public_appointment.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
 class DateSelect extends StatefulWidget {
-  const DateSelect({Key? key, required this.appointmentStream})
+  const DateSelect({Key? key, required this.appointmentSnap, required this.appointmentCategory})
       : super(key: key);
-  final Stream<QuerySnapshot<Map<String, dynamic>>>? appointmentStream;
+  final CollectionReference<Map<String, dynamic>> appointmentSnap;
+  final String appointmentCategory;
 
   @override
   State<DateSelect> createState() => _DateSelectState();
@@ -43,11 +46,17 @@ class _DateSelectState extends State<DateSelect> {
                 context.sized.emptySizedHeightBoxLow,
                 Center(
                     child: ElevatedButton(
-                        onPressed: () {}, child: Text('Randevu Ekle'))),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>
+                          (widget.appointmentCategory=='privateAppointment') ?
+                              PrivateAppointmentView(date: day, appointmentCategory: widget.appointmentCategory) :
+                              PublicAppointmentView(day: day, month: month, year: year, appointmentCategory: widget.appointmentCategory)
+                          )
+                          );
+                        }, child: Text('Randevu Ekle'))),
                 context.sized.emptySizedHeightBoxNormal,
                 StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                    stream: FirebaseFirestore.instance
-                        .collection('publicAppointment')
+                    stream: widget.appointmentSnap
                     .where('day', isEqualTo: day)
                     .where('month', isEqualTo: month)
                     .where('year', isEqualTo: year)
@@ -77,7 +86,7 @@ class _DateSelectState extends State<DateSelect> {
                             itemBuilder: (context, int index) {
 
                               return Card(
-                                margin: context.padding.normal,
+                                margin: context.padding.low,
                                 child: ListTile(
                                   title: Text(appointments[index].name.toString()),
                                 ),
