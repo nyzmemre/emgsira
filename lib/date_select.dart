@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
+import 'package:emgsira/app_constants.dart';
+import 'package:emgsira/app_constants.dart';
 import 'package:emgsira/appointment_model.dart';
+import 'package:emgsira/basic_appointment.dart';
 import 'package:emgsira/private_appointment.dart';
 import 'package:emgsira/public_appointment.dart';
 import 'package:flutter/material.dart';
@@ -49,8 +52,8 @@ class _DateSelectState extends State<DateSelect> {
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (_)=>
                           (widget.appointmentCategory=='privateAppointment') ?
-                              PrivateAppointmentView(date: day, appointmentCategory: widget.appointmentCategory) :
-                              PublicAppointmentView(day: day, month: month, year: year, appointmentCategory: widget.appointmentCategory)
+                              BasicAppointment(day: day, month: month, year: year, appointmentCategory: widget.appointmentCategory, appointmentName: AppConstants.privateAppointment,) :
+                              BasicAppointment(day: day, month: month, year: year, appointmentCategory: widget.appointmentCategory, appointmentName: AppConstants.publicAppointment,)
                           )
                           );
                         }, child: Text('Randevu Ekle'))),
